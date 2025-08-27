@@ -324,7 +324,8 @@ class SQLDerivation(BaseDerivation):
                 filter_polars = filter_polars.replace(" and ", " & ")
                 filter_polars = filter_polars.replace(" or ", " | ")
                 filter_polars = filter_polars.replace("==", "=").replace("=", "==")
-                
+                # Add parentheses around all comparisons to fix operator precedence
+                filter_polars = re.sub(r'(pl\.col\("[^"]+"\)\s*[<>=!]+\s*(?:"[^"]*"|pl\.col\("[^"]+"\)))', r"(\1)", filter_polars)
                 # Apply filter
                 filtered_df = merged_df.filter(eval(filter_polars))
             except Exception as e:
