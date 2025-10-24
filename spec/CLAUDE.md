@@ -101,14 +101,14 @@ adsl_spec2.save("spec/adsl_study_combined2.yaml")
 - Handle missing/partial data per rules
 - Example: `WEIGHT from VS where VSTESTCD="WEIGHT" that before and closest to start date`
 
-### Method 6: Conditional/Derived Logic
+### Method 5: Conditional/Derived Logic
 **Use Case**: Complex business rules and calculations
 - Apply **filter** conditions if specified
 - Group records by subject **key**
 - Apply **cut** to break a numeric value into ordered group.
 - Example: `AGEGR1 based on AGE ranges`
 
-### Method 7: Custom Function Application
+### Method 6: Custom Function Application
 **Use Case**: Study-specific complex algorithms
 - Apply custom **function** with **arguments**
 - Support external function libraries
