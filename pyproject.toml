@@ -29,6 +29,9 @@ dev = [
     "ruff>=0.1.0",
     "mypy>=1.0.0",
     "types-PyYAML>=6.0.0",
+    "reactable>=0.1.6",
+    "nbclient>=0.10.2",
+    "nbformat>=5.10.4",
 ]
 
 [project.urls]

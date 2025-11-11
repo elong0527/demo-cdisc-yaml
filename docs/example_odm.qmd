@@ -1,0 +1,78 @@
+---
+title: "ODM XML Loading"
+format:
+  html:
+    code-fold: false
+execute:
+  echo: true
+  warning: false
+---
+
+## Introduction
+
+Load ODM XML files from OpenClinica into Polars DataFrames with smart column naming.
+
+## Setup
+
+```{python}
+import sys
+import os
+sys.path.insert(0, os.path.abspath(".."))
+
+import polars as pl
+from src.odm import load
+from reactable import Reactable, embed_css
+
+pl.Config.set_tbl_rows(10)
+embed_css()
+```
+
+## Basic Usage
+
+```{python}
+file_path = "../data/odm/openclinica.xml"
+
+# Load with hierarchical struct columns
+df_dict = load.odm_xml_to_df_dict(file_path)
+df_dict.schema
+```
+
+```{python}
+# Load flattened for analysis
+df = load.odm_xml_to_df(file_path)
+df.columns
+```
+
+## Smart Column Naming
+
+Only duplicated field names get prefixes:
+
+```{python}
+# Show which columns have prefixes
+prefixed = [col for col in df.columns if '_' in col]
+clean = [col for col in df.columns if '_' not in col]
+
+{
+    "prefixed_columns": prefixed,
+    "clean_columns": clean[:8],  # Show first 8
+    "total_columns": len(df.columns)
+}
+```
+
+## Data Exploration
+
+```{python}
+# Interactive table with key columns
+key_cols = ["studyoid", "subjectkey", "studyeventoid", "formoid", "itemgroupoid", "itemoid", "value"]
+available_cols = [col for col in key_cols if col in df.columns]
+
+Reactable(df.select(available_cols).head(20))
+```
+
+## Summary
+
+The ODM loader provides:
+- Smart naming (only duplicates get prefixes)
+- Hierarchical or flattened output
+- Automatic lowercase conversion
+- Namespace cleaning

@@ -13,6 +13,8 @@ website:
       contents:
         - text: "ADSL Dataset"
           href: example_adsl.qmd
+        - text: "ODM XML Loading"
+          href: example_odm.qmd
           
     - title: "Reference"
       contents:
