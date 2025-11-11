@@ -5,6 +5,7 @@ venv/
 __pycache__/
 *.pyc
 .DS_Store
+.pyre/ 
 
 # Documentation build
 docs/_site/

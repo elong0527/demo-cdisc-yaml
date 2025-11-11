@@ -1,6 +1,6 @@
 """Minimal derivation module for ADaM dataset generation."""
 
-from .sql_derivation import SQLDerivation
 from .function_derivation import FunctionDerivation
+from .sql_derivation import SQLDerivation
 
 __all__ = ["SQLDerivation", "FunctionDerivation"]

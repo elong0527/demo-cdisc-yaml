@@ -1,17 +1,18 @@
-import yaml
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
-from copy import deepcopy
+
+import yaml
 
 
 def merge_yaml(
-    paths: list[str | Path], 
+    paths: list[str | Path],
     list_merge_strategy: str = "replace",
-    list_merge_keys: dict[str, str] = None
+    list_merge_keys: dict[str, str] = None,
 ) -> dict[str, Any]:
     """
     Merge multiple YAML files in order with deep merging
-    
+
     Args:
         paths: List of YAML file paths to merge in order
         list_merge_strategy: How to merge lists:
@@ -20,14 +21,14 @@ def merge_yaml(
             - "merge_by_key": Merge list items by matching a key field
         list_merge_keys: Dict mapping list field names to their merge key
             e.g., {"columns": "name"} means merge columns by matching "name" field
-    
+
     Returns:
         Merged dictionary from all YAML files
-    
+
     Examples:
         # Simple merge (lists replaced)
         result = merge_yaml(["file1.yaml", "file2.yaml"])
-        
+
         # Merge with column deep merging
         result = merge_yaml(
             ["base.yaml", "override.yaml"],
@@ -36,7 +37,7 @@ def merge_yaml(
         )
     """
     list_merge_keys = list_merge_keys or {}
-    
+
     def merge_lists(base_list: list, override_list: list, key_field: str = None) -> list:
         """Merge two lists based on strategy"""
         if list_merge_strategy == "append":
@@ -64,7 +65,7 @@ def merge_yaml(
         else:
             # Default: replace
             return override_list
-    
+
     def deep_merge(base: Any, override: Any, path: str = "") -> Any:
         """Deep merge two values"""
         if isinstance(base, dict) and isinstance(override, dict):
@@ -84,14 +85,14 @@ def merge_yaml(
             return merge_lists(base, override, key_field)
         else:
             return deepcopy(override)
-    
+
     # Start with empty dict
     merged = {}
-    
+
     # Merge each file in order
     for path in paths:
-        with open(path, 'r') as f:
+        with open(path) as f:
             content = yaml.safe_load(f) or {}
         merged = deep_merge(merged, content)
-    
+
     return merged

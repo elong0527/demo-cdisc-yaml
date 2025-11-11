@@ -1,0 +1,9 @@
+{
+  "source_directories": [
+    "src"
+  ],
+  "taint_models_path": [],
+  "ignore_all_errors": [],
+  "strict": false,
+  "version": ">=0.9.0"
+}
