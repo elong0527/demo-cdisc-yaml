@@ -107,7 +107,7 @@ class FunctionDerivation(BaseDerivation):
             module = importlib.import_module(module_name)
             return getattr(module, func_name)
         except (ImportError, AttributeError) as e:
-            raise ImportError(f"Cannot import {function_name}: {e}")
+            raise ImportError(f"Cannot import {function_name}: {e}") from e
 
     def _load_local_function(self, function_name: str):
         """Load function from local Python files."""

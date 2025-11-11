@@ -101,14 +101,14 @@ class AdamSpec:
             with open(self.path) as f:
                 study_spec = yaml.safe_load(f) or {}
         except yaml.YAMLError as e:
-            raise ValueError(f"Invalid YAML in {self.path}: {e}")
+            raise ValueError(f"Invalid YAML in {self.path}: {e}") from e
 
         yaml_files = self._collect_yaml_files(study_spec)
 
         final_spec = merge_yaml(
-            yaml_files,
+            yaml_files,  # pyre-ignore[6]
             list_merge_strategy="merge_by_key",
-            list_merge_keys={"columns": "name"},  # pyre-ignore[6]
+            list_merge_keys={"columns": "name"},
         )
 
         self._raw_spec = final_spec

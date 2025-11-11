@@ -80,14 +80,15 @@ def odm_xml_to_df_dict(file_path: str | Path) -> pl.DataFrame:
         clean_content = remove_namespaces(xml_content)
         root = ET.fromstring(clean_content)
     except ET.ParseError as e:
-        raise ET.ParseError(f"Failed to parse ODM XML file: {e}")
+        raise ET.ParseError(f"Failed to parse ODM XML file: {e}") from e
     except UnicodeDecodeError as e:
-        raise ValueError(f"Failed to read ODM XML file with UTF-8 encoding: {e}")
+        raise ValueError(f"Failed to read ODM XML file with UTF-8 encoding: {e}") from e
 
     # Extract data from ODM structure
     data_records = []
 
-    # Navigate through ODM structure: ODM > ClinicalData > SubjectData > StudyEventData > FormData > ItemGroupData > ItemData
+    # Navigate through ODM structure: ODM > ClinicalData > SubjectData > StudyEventData >
+    # FormData > ItemGroupData > ItemData
     for clinical_data in root.findall("ClinicalData"):
         study = clinical_data.attrib
 

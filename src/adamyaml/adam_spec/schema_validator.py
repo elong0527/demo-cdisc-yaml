@@ -52,7 +52,7 @@ class SchemaValidator:
                 logger.debug(f"Loaded schema from {self.schema_path}")
                 return schema
         except yaml.YAMLError as e:
-            raise ValueError(f"Invalid YAML in schema file: {e}")
+            raise ValueError(f"Invalid YAML in schema file: {e}") from e
 
     def validate(self, spec: dict) -> list[ValidationResult]:
         """
@@ -177,18 +177,17 @@ class SchemaValidator:
             self._validate_dict_field(name, value, schema)
 
         # Allowed values validation
-        if "allowed_values" in schema:
-            if value not in schema["allowed_values"]:
-                self.results.append(
-                    ValidationResult(
-                        field=name,
-                        rule="invalid_value",
-                        severity="warning",
-                        message=f"Field '{name}' has non-standard value: '{value}'",
-                        value=value,
-                        expected=schema["allowed_values"],
-                    )
+        if "allowed_values" in schema and value not in schema["allowed_values"]:
+            self.results.append(
+                ValidationResult(
+                    field=name,
+                    rule="invalid_value",
+                    severity="warning",
+                    message=f"Field '{name}' has non-standard value: '{value}'",
+                    value=value,
+                    expected=schema["allowed_values"],
                 )
+            )
 
     def _validate_list_field(self, name: str, items: list, schema: dict) -> None:
         """Validate a list field"""
@@ -386,7 +385,7 @@ class SchemaValidator:
             )
 
         # Numeric validations
-        if isinstance(value, (int, float)):
+        if isinstance(value, int | float):
             if "min" in schema and value < schema["min"]:
                 self.results.append(
                     ValidationResult(

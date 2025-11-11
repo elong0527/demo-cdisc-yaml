@@ -59,7 +59,6 @@ class SQLDerivation(BaseDerivation):
             return series
 
         # Build SQL query
-        sql_parts = []
 
         # Handle aggregation
         if "aggregation" in derivation:
@@ -84,7 +83,7 @@ class SQLDerivation(BaseDerivation):
 
         # Get source column
         if source in self.target_df.columns:
-            source_series = self.target_df[source]
+            self.target_df[source]
         else:
             raise ValueError(f"Source column {source} not found for cut")
 

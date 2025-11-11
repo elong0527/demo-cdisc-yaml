@@ -61,7 +61,7 @@ class TestSchemaValidator(unittest.TestCase):
     def test_valid_spec(self):
         """Test validation of valid specification"""
         validator = SchemaValidator(self.schema_file)
-        results = validator.validate(self.valid_spec)
+        validator.validate(self.valid_spec)
 
         self.assertTrue(validator.is_valid())
         self.assertEqual(len(validator.get_errors()), 0)
@@ -69,7 +69,7 @@ class TestSchemaValidator(unittest.TestCase):
     def test_invalid_spec(self):
         """Test validation of invalid specification"""
         validator = SchemaValidator(self.schema_file)
-        results = validator.validate(self.invalid_spec)
+        validator.validate(self.invalid_spec)
 
         self.assertFalse(validator.is_valid())
         errors = validator.get_errors()

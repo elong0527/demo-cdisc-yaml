@@ -30,7 +30,8 @@ def get_function_path(short_name: str) -> str:
     """
     if short_name not in FUNCTION_REGISTRY:
         raise KeyError(
-            f"Function '{short_name}' not found in registry. Available: {list(FUNCTION_REGISTRY.keys())}"
+            f"Function '{short_name}' not found in registry. "
+            f"Available: {list(FUNCTION_REGISTRY.keys())}"
         )
 
     return FUNCTION_REGISTRY[short_name]

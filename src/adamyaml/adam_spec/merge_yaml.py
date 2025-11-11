@@ -39,8 +39,10 @@ def merge_yaml(
     list_merge_keys = list_merge_keys or {}
 
     def merge_lists(
-        base_list: list, override_list: list, key_field: str = None
-    ) -> list:  # pyre-ignore[9]
+        base_list: list,
+        override_list: list,
+        key_field: str = None,  # pyre-ignore[9]
+    ) -> list:
         """Merge two lists based on strategy"""
         if list_merge_strategy == "append":
             return base_list + override_list

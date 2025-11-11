@@ -72,7 +72,7 @@ class AdamDerivation:
         """Load all required source data once."""
         dependencies = self.spec.get_data_dependency()
         required_datasets = list(
-            set(dep["sdtm_data"] for dep in dependencies if dep["sdtm_data"] != self.spec.domain)
+            {dep["sdtm_data"] for dep in dependencies if dep["sdtm_data"] != self.spec.domain}
         )
 
         key_vars = self.spec.key or []

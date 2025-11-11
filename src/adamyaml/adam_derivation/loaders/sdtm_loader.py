@@ -80,7 +80,8 @@ class SDTMLoader:
             if renamed_columns:
                 df = df.rename(renamed_columns)
                 self.logger.debug(
-                    f"Renamed {len(renamed_columns)} columns in {dataset_name} using domain '{domain_value}'"
+                    f"Renamed {len(renamed_columns)} columns in {dataset_name} "
+                    f"using domain '{domain_value}'"
                 )
 
         # Cache the dataset

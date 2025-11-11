@@ -168,7 +168,7 @@ class DataValidator:
             if series.dtype == pl.Utf8:
                 try:
                     numeric_series = series.cast(pl.Float64, strict=False)
-                except:
+                except Exception:
                     # If conversion fails, skip numeric validation
                     return results
 

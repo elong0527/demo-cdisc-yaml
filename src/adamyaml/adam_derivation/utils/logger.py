@@ -48,8 +48,12 @@ class DerivationLogger:
             self.logger.setLevel(logging.INFO)
 
     def log_derivation(
-        self, column: str, method: str, source: str = None, records: int = 0
-    ):  # pyre-ignore[9]
+        self,
+        column: str,
+        method: str,
+        source: str = None,  # pyre-ignore[9]
+        records: int = 0,
+    ):
         """Log successful derivation"""
         log_entry = DerivationLog(
             column=column, method=method, source=source, records_affected=records
