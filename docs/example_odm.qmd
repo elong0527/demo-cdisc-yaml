@@ -34,6 +34,12 @@ file_path = "../data/odm/openclinica.xml"
 
 # Load with hierarchical struct columns
 df_dict = load.odm_xml_to_df_dict(file_path)
+Reactable(df_dict)
+```
+
+### Data Schema 
+
+```{python}
 df_dict.schema
 ```
 
@@ -43,35 +49,18 @@ df = load.odm_xml_to_df(file_path)
 df.columns
 ```
 
-## Smart Column Naming
-
-Only duplicated field names get prefixes:
-
-```{python}
-# Show which columns have prefixes
-prefixed = [col for col in df.columns if '_' in col]
-clean = [col for col in df.columns if '_' not in col]
-
-{
-    "prefixed_columns": prefixed,
-    "clean_columns": clean[:8],  # Show first 8
-    "total_columns": len(df.columns)
-}
-```
-
 ## Data Exploration
 
 ```{python}
 # Interactive table with key columns
-key_cols = ["studyoid", "subjectkey", "studyeventoid", "formoid", "itemgroupoid", "itemoid", "value"]
-available_cols = [col for col in key_cols if col in df.columns]
-
-Reactable(df.select(available_cols).head(20))
+cols = ["studyoid", "subjectkey", "studyeventoid", "formoid", "itemgroupoid", "itemoid", "value"]
+Reactable(df.select(cols))
 ```
 
 ## Summary
 
 The ODM loader provides:
+
 - Smart naming (only duplicates get prefixes)
 - Hierarchical or flattened output
 - Automatic lowercase conversion
