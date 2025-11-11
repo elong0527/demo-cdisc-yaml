@@ -27,7 +27,7 @@ def remove_namespaces(xml_content: str) -> str:
     xml_content = re.sub(r'\s*xmlns[^=]*=\'[^\']*\'', '', xml_content)
 
     # Remove namespace prefixes from opening tags
-    xml_content = re.sub(r'<([^>\s]+:)([^>\s/]+)', r'<\2', xml_content)
+    xml_content = re.sub(r'<([^/>\s]+:)([^>\s/]+)', r'<\2', xml_content)
     # Remove namespace prefixes from closing tags
     xml_content = re.sub(r'</([^>\s]+:)([^>\s]+)', r'</\2', xml_content)
     # Remove namespace prefixes from attributes
