@@ -59,7 +59,7 @@ df.columns
 ### Data Exploration
 
 ```{python}
-Reactable(df.select(cols))
+Reactable(df)
 ```
 
 ## Summary
