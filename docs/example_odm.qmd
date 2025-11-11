@@ -10,7 +10,9 @@ execute:
 
 ## Introduction
 
-Load ODM XML files from OpenClinica into Polars DataFrames with smart column naming.
+Load ODM XML files as Polars DataFrames. 
+
+Example ODM XML file <https://raw.githubusercontent.com/elong0527/demo-cdisc-yaml/refs/heads/main/data/odm/openclinica.xml> 
 
 ## Setup
 
@@ -27,14 +29,17 @@ pl.Config.set_tbl_rows(10)
 embed_css()
 ```
 
-## Basic Usage
+## Common Schema 
+
+- pro: output data always have common schema. 
+- con: each value is a `struct`, need extra `unnest` step.
 
 ```{python}
 file_path = "../data/odm/openclinica.xml"
 
 # Load with hierarchical struct columns
 df_dict = load.odm_xml_to_df_dict(file_path)
-Reactable(df_dict)
+df_dict.head(5)
 ```
 
 ### Data Schema 
@@ -43,17 +48,17 @@ Reactable(df_dict)
 df_dict.schema
 ```
 
+## Different Schema 
+
 ```{python}
 # Load flattened for analysis
 df = load.odm_xml_to_df(file_path)
 df.columns
 ```
 
-## Data Exploration
+### Data Exploration
 
 ```{python}
-# Interactive table with key columns
-cols = ["studyoid", "subjectkey", "studyeventoid", "formoid", "itemgroupoid", "itemoid", "value"]
 Reactable(df.select(cols))
 ```
 
