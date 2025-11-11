@@ -8,8 +8,20 @@ containing clinical trial data from OpenClinica.
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import polars as pl
-import polars.selectors as cs
 import re
+
+
+def get_struct_columns(df: pl.DataFrame) -> list[str]:
+    """
+    Get list of column names that have struct data types.
+
+    Args:
+        df: DataFrame to inspect
+
+    Returns:
+        List of column names with struct data types
+    """
+    return [col for col in df.columns if isinstance(df[col].dtype, pl.Struct)]
 
 
 def remove_namespaces(xml_content: str) -> str:
@@ -109,7 +121,7 @@ def odm_xml_to_df_dict(file_path: str | Path) -> pl.DataFrame:
     # Handle duplicate field names in struct columns using selectors
     # Find duplicate field names across all struct columns
     all_field_names = []
-    for col in df.select(cs.struct()).columns:
+    for col in get_struct_columns(df):
         struct_dtype = df[col].dtype
         all_field_names.extend(struct_dtype.to_schema().keys())
 
@@ -118,7 +130,7 @@ def odm_xml_to_df_dict(file_path: str | Path) -> pl.DataFrame:
 
     # Rename fields in structs: add prefix only to duplicated fields
     struct_transformations = []
-    for col in df.select(cs.struct()).columns:
+    for col in get_struct_columns(df):
         struct_dtype = df[col].dtype
         original_fields = list(struct_dtype.to_schema().keys())
         new_field_names = []
@@ -158,4 +170,6 @@ def odm_xml_to_df(file_path: str | Path) -> pl.DataFrame:
         >>> 'study_translateoid' in df.columns  # True (was duplicated)
         >>> 'studyoid' in df.columns  # True (was unique, no prefix)
     """
-    return odm_xml_to_df_dict(file_path).unnest(cs.struct())
+    df_dict = odm_xml_to_df_dict(file_path)
+    struct_cols = get_struct_columns(df_dict)
+    return df_dict.unnest(struct_cols)
