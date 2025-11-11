@@ -2,6 +2,9 @@
   "source_directories": [
     "src"
   ],
+  "search_path": [
+    ".venv/lib/python3.13/site-packages"
+  ],
   "taint_models_path": [],
   "ignore_all_errors": [],
   "strict": false,
