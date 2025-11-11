@@ -22,8 +22,8 @@ import os
 sys.path.insert(0, os.path.abspath(".."))
 
 import polars as pl
-from adamyaml.adam_derivation import AdamDerivation
-from adamyaml.adam_spec import AdamSpec
+from src.adamyaml.adam_derivation import AdamDerivation
+from src.adamyaml.adam_spec import AdamSpec
 from reactable import Reactable, embed_css
 
 pl.Config.set_tbl_rows(20)

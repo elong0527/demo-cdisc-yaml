@@ -9,7 +9,7 @@ title: "API Reference"
 The main engine for deriving ADaM datasets from SDTM data.
 
 ```python
-from adamyaml.adam_derivation import AdamDerivation
+from src.adamyaml.adam_derivation import AdamDerivation
 
 engine = AdamDerivation(spec_path: str)
 ```
@@ -23,7 +23,7 @@ engine = AdamDerivation(spec_path: str)
 Handles loading and merging hierarchical YAML specifications.
 
 ```python
-from adamyaml.adam_spec import AdamSpec
+from src.adamyaml.adam_spec import AdamSpec
 
 spec = AdamSpec(path: str, schema_path: str = None)
 ```
@@ -144,7 +144,7 @@ derivation:
 Merge multiple YAML files with inheritance support.
 
 ```python
-from adamyaml.adam_spec import merge_yaml
+from src.adamyaml.adam_spec import merge_yaml
 
 merged = merge_yaml(
     paths=["base.yaml", "override.yaml"],
@@ -160,7 +160,7 @@ merged = merge_yaml(
 Validates specifications against schema rules.
 
 ```python
-from adamyaml.adam_spec import SchemaValidator
+from src.adamyaml.adam_spec import SchemaValidator
 
 validator = SchemaValidator("schema.yaml")
 results = validator.validate(spec_dict)

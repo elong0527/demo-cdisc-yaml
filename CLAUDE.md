@@ -11,7 +11,8 @@ This project provides two complementary Python modules for ADaM (Analysis Data M
 ## Project Structure
 ```
 demo_adam_yaml/
-+-- adamyaml/
++-- src/
+|   +-- adamyaml/
 |   +-- adam_spec/           # YAML specification module
 |   |   +-- __init__.py
 |   |   +-- adam_spec.py     # Core specification class
@@ -99,7 +100,7 @@ class AdamDerivation:
 
 ### Specification Handling (adam_yaml)
 ```python
-from adamyaml.adam_spec import AdamSpec
+from src.adamyaml.adam_spec import AdamSpec
 
 # Load and validate specification
 spec = AdamSpec("spec/adsl_study.yaml", schema_path="spec/schema.yaml")
@@ -109,7 +110,7 @@ print(spec.key)     # ['USUBJID', 'SUBJID']
 
 ### Dataset Generation (adam_derivation)
 ```python
-from adamyaml.adam_derivation import AdamDerivation
+from src.adamyaml.adam_derivation import AdamDerivation
 
 # Create engine and build dataset
 engine = AdamDerivation("spec/adsl_study.yaml")

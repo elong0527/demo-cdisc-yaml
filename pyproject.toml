@@ -2,15 +2,18 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.build]
+directory = "src"
+
 [tool.hatch.build.targets.wheel]
-packages = ["adamyaml"]
+packages = ["adamyaml", "odm"]
 
 [project]
-name = "adamyaml"
+name = "cesa"
 version = "0.2.0"
 description = "YAML-driven ADaM dataset generation toolkit"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 authors = [
     { name = "Your Name", email = "your.email@example.com" }
 ]
@@ -25,10 +28,8 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "polars>=0.20.0",
-    "pyarrow>=10.0.0",
+    "polars>=1.35.2",
     "pyyaml>=6.0",
-    "pandas>=2.0.0",
 ]
 
 [project.optional-dependencies]
@@ -45,8 +46,8 @@ dev = [
 "Bug Reports" = "https://github.com/yourusername/demo_adam_yaml/issues"
 "Source" = "https://github.com/yourusername/demo_adam_yaml"
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
     "ruff>=0.1.0",
@@ -94,7 +95,7 @@ show_error_codes = true
 show_error_context = true
 
 [tool.pytest.ini_options]
-testpaths = ["src/adam_yaml/tests"]
+testpaths = ["src/adamyaml", "src/odm"]
 python_files = ["test_*.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]

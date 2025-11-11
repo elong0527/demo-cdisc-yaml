@@ -15,7 +15,7 @@ def main():
     print("=" * 50)
     
     try:
-        from adamyaml.adam_derivation import AdamDerivation
+        from src.adamyaml.adam_derivation import AdamDerivation
         
         # Initialize the derivation engine
         spec_path = "spec/study1/adsl_study1.yaml"

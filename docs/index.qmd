@@ -24,7 +24,7 @@ uv pip install -e .
 ### Basic Usage
 
 ```python
-from adamyaml.adam_derivation import AdamDerivation
+from src.adamyaml.adam_derivation import AdamDerivation
 
 # Load specification and build dataset
 engine = AdamDerivation("spec/study1/adsl_study1.yaml")
