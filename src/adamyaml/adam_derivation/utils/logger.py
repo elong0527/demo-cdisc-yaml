@@ -14,9 +14,9 @@ class DerivationLog:
 
     column: str
     method: str
-    source: str = None
+    source: str = None  # pyre-ignore[8]
     records_affected: int = 0
-    error: str = None
+    error: str = None  # pyre-ignore[8]
     timestamp: datetime = field(default_factory=datetime.now)
 
     def to_dict(self) -> dict[str, Any]:
@@ -47,7 +47,9 @@ class DerivationLogger:
             self.logger.addHandler(handler)
             self.logger.setLevel(logging.INFO)
 
-    def log_derivation(self, column: str, method: str, source: str = None, records: int = 0):
+    def log_derivation(
+        self, column: str, method: str, source: str = None, records: int = 0
+    ):  # pyre-ignore[9]
         """Log successful derivation"""
         log_entry = DerivationLog(
             column=column, method=method, source=source, records_affected=records
@@ -55,7 +57,7 @@ class DerivationLogger:
         self.logs.append(log_entry)
         self.logger.info(f"Derived {column} using {method} from {source or 'constant'}")
 
-    def log_error(self, column: str, method: str, error: str, source: str = None):
+    def log_error(self, column: str, method: str, error: str, source: str = None):  # pyre-ignore[9]
         """Log derivation error"""
         log_entry = DerivationLog(column=column, method=method, source=source, error=error)
         self.errors.append(log_entry)

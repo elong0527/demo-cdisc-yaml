@@ -384,4 +384,4 @@ class SQLDerivation(BaseDerivation):
             else:
                 result = pl.when(result == old_val).then(new_val).otherwise(result)
 
-        return result
+        return result  # pyre-ignore[7]

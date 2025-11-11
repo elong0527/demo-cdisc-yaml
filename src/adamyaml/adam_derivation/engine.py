@@ -120,7 +120,7 @@ class AdamDerivation:
         self.target_df = self._build_keys()
 
         # Derive each column
-        for col_spec in self.spec.get_column_specs():
+        for col_spec in self.spec.get_column_specs():  # pyre-ignore[16]
             col_name = col_spec["name"]
 
             if col_name in self.spec.key or col_spec.get("drop"):

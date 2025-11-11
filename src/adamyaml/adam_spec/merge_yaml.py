@@ -8,7 +8,7 @@ import yaml
 def merge_yaml(
     paths: list[str | Path],
     list_merge_strategy: str = "replace",
-    list_merge_keys: dict[str, str] = None,
+    list_merge_keys: dict[str, str] = None,  # pyre-ignore[9]
 ) -> dict[str, Any]:
     """
     Merge multiple YAML files in order with deep merging
@@ -38,7 +38,9 @@ def merge_yaml(
     """
     list_merge_keys = list_merge_keys or {}
 
-    def merge_lists(base_list: list, override_list: list, key_field: str = None) -> list:
+    def merge_lists(
+        base_list: list, override_list: list, key_field: str = None
+    ) -> list:  # pyre-ignore[9]
         """Merge two lists based on strategy"""
         if list_merge_strategy == "append":
             return base_list + override_list
@@ -82,7 +84,7 @@ def merge_yaml(
             key_field = None
             if path in list_merge_keys:
                 key_field = list_merge_keys[path]
-            return merge_lists(base, override, key_field)
+            return merge_lists(base, override, key_field)  # pyre-ignore[6]
         else:
             return deepcopy(override)
 

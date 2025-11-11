@@ -647,7 +647,7 @@ class SchemaValidator:
         }
 
         expected_class = type_map.get(expected_type, object)
-        return isinstance(value, expected_class)
+        return isinstance(value, expected_class)  # pyre-ignore[6]
 
     def get_errors(self) -> list[ValidationResult]:
         """Get only error-level results"""

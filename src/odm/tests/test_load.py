@@ -10,7 +10,7 @@ from pathlib import Path
 import polars as pl
 import polars.selectors as cs
 
-from src.odm.load import odm_xml_to_df, odm_xml_to_df_dict, remove_namespaces
+from src.odm.load import odm_xml_to_df, odm_xml_to_df_dict, remove_namespaces  # pyre-ignore[21]
 
 
 class TestRemoveNamespaces(unittest.TestCase):

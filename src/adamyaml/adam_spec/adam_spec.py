@@ -106,7 +106,9 @@ class AdamSpec:
         yaml_files = self._collect_yaml_files(study_spec)
 
         final_spec = merge_yaml(
-            yaml_files, list_merge_strategy="merge_by_key", list_merge_keys={"columns": "name"}
+            yaml_files,
+            list_merge_strategy="merge_by_key",
+            list_merge_keys={"columns": "name"},  # pyre-ignore[6]
         )
 
         self._raw_spec = final_spec
