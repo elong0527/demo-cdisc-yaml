@@ -1,8 +1,9 @@
-# ADaM YAML Specification System
+# Demo project for CDISC datasets and TLFs generation
 
-A hierarchical YAML-based specification system for defining ADaM (Analysis Data Model) datasets in clinical trials, following CDISC standards.
+- A hierarchical YAML-based specification system for defining SDTM and ADaM datasets starting from ODM XML files in clinical trials, following CDISC standards.
+- Creating TLFs using SDTM / ADaM datasets as source. 
 
-## Overview
+## Overview on ADaM datasets
 
 This project provides a flexible and maintainable way to define ADaM dataset specifications using YAML files with inheritance and validation capabilities. It enables clinical data programmers to create reusable, hierarchical specifications that follow CDISC ADaM standards.
 

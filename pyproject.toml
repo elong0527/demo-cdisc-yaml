@@ -1,7 +1,7 @@
 [project]
 name = "cesa"
 version = "0.2.0"
-description = "YAML-driven ADaM dataset generation toolkit"
+description = "YAML-driven CDISC datasets and TLFs generation toolkit"
 readme = "README.md"
 requires-python = ">=3.10,<3.14"
 authors = [
