@@ -1,0 +1,7 @@
+plan:
+  - name: disp_single_stage
+    population: adsl
+    observation: None
+    group: trt01p
+
+

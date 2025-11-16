@@ -1,0 +1,35 @@
+# default key words to define population
+population:
+  - name: screening
+    id: USUBJID
+    label: Screening Subjects
+  - name: apat
+    id: USUBJID
+    label: All Participants as Treated
+  - name: apr
+    id: USUBJID
+    label: All Participants Randomized
+  - name: apt
+    id: USUBJID
+    label: All Participants Treated
+  - name: ape
+    id: USUBJID
+    label: All Participants Enrolled
+  - name: asat
+    id: USUBJID
+    label: All Subjects as Treated
+  - name: asr
+    id: USUBJID
+    label: All Subjects Randomized
+  - name: ast
+    id: USUBJID
+    label: All Subjects Treated
+  - name: ase
+    id: USUBJID
+    label: All Subjects Enrolled
+  - name: itt
+    id: USUBJID
+    label: ITT Population
+  - name: pp
+    id: USUBJID
+    label: Per-Protocol Population

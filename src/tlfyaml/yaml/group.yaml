@@ -1,0 +1,6 @@
+# default key words to define analysis group
+group:
+  - name: TRT01P
+    value: Xanomeline High Dose, Xanomeline Low Dose, Placebo
+    label: Xanomeline High Dose, Xanomeline Low Dose, Placebo
+  

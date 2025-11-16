@@ -1,0 +1,4 @@
+data:
+  - name: adsl
+    source: ADSL
+    path: data/adam_validate/adsl.parquet
