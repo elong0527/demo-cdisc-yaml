@@ -1,0 +1,119 @@
+---
+title: "CAR-TODM XML Loading"
+format:
+  html:
+    code-fold: false
+execute:
+  echo: true
+  warning: false
+---
+
+## Introduction
+
+Load ODM XML files as Polars DataFrames. 
+
+Example ODM XML file <https://raw.githubusercontent.com/elong0527/demo-cdisc-yaml/refs/heads/main/data/odm/car-t-openclinica.xml> 
+
+## Setup
+
+```{python}
+import sys
+import os
+sys.path.insert(0, os.path.abspath(".."))
+
+import polars as pl
+from src.odm import load
+from reactable import Reactable, embed_css
+
+pl.Config.set_tbl_rows(10)
+embed_css()
+```
+
+## Common Schema 
+
+- pro: output data always have common schema. 
+- con: each value is a `struct`, need extra `unnest` step.
+
+```{python}
+file_path = "data/odm/car-t-openclinica.xml"
+
+# Load with hierarchical struct columns
+df_dict = load.odm_xml_to_df_dict(file_path)
+df_dict.head(5)
+```
+
+### Data Schema 
+
+```{python}
+df_dict.schema
+```
+
+## Different Schema 
+
+```{python}
+# Load flattened for analysis
+df = load.odm_xml_to_df(file_path)
+df.columns
+```
+
+### Listing of Forms 
+
+```{python}
+pl.Config.set_tbl_cols(-1)
+pl.Config.set_tbl_rows(-1)
+```
+
+```{python}
+df["formoid", "formname"].unique().sort("formname")
+```
+
+### Demographic Form
+
+```{python}
+dm = df.filter(df["formoid"] == "F_1DEMOGRAPHIC")
+dm_wide = dm.pivot(
+    index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
+    on="itemname"
+)
+```
+
+
+### Randomization Form
+
+```{python}
+rand = df.filter(df["formoid"] == "F_3RANDOMIZE")
+rand.pivot(
+    index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
+    on="itemname"
+)
+```
+
+```{python}
+rand = df.filter(df["formoid"] == "F_4VIEWRANDOMI")
+rand.pivot(
+    index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
+    on="itemname"
+).sort("KITALLOCATION")
+```
+
+### Disposition Form 
+
+```{python}
+df_disposition = df.filter(df["formoid"] == "F_DISPOSITION")
+df_disposition.pivot(index=["subjectkey", "formoid"], values="value", on="itemname")
+```
+
+### Data Exploration
+
+```{python}
+Reactable(df)
+```
+
+## Summary
+
+The ODM loader provides:
+
+- Smart naming (only duplicates get prefixes)
+- Hierarchical or flattened output
+- Automatic lowercase conversion
+- Namespace cleaning
