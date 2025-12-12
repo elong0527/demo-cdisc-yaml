@@ -18,8 +18,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
+    "jupyter>=1.1.1",
     "polars>=1.35.2",
     "pyyaml>=6.0",
+    "reactable>=0.1.6",
 ]
 
 [project.optional-dependencies]

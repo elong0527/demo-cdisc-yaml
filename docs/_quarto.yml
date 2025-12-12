@@ -25,6 +25,7 @@ website:
           - index.qmd
           - example_adsl.qmd
           - example_odm.qmd
+          - example_odm_cart.qmd
       - section: "API"
         contents:
           - api.qmd

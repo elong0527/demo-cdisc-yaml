@@ -35,7 +35,7 @@ embed_css()
 - con: each value is a `struct`, need extra `unnest` step.
 
 ```{python}
-file_path = "data/odm/car-t-openclinica.xml"
+file_path = "../data/odm/car-t-openclinica.xml"
 
 # Load with hierarchical struct columns
 df_dict = load.odm_xml_to_df_dict(file_path)
@@ -54,6 +54,10 @@ df_dict.schema
 # Load flattened for analysis
 df = load.odm_xml_to_df(file_path)
 df.columns
+```
+
+```{python}
+Reactable(df)
 ```
 
 ### Listing of Forms 
@@ -75,6 +79,7 @@ dm_wide = dm.pivot(
     index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
     on="itemname"
 )
+Reactable(dm_wide)
 ```
 
 
@@ -82,31 +87,28 @@ dm_wide = dm.pivot(
 
 ```{python}
 rand = df.filter(df["formoid"] == "F_3RANDOMIZE")
-rand.pivot(
+rand_wide = rand.pivot(
     index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
     on="itemname"
 )
+Reactable(rand_wide)
 ```
 
 ```{python}
 rand = df.filter(df["formoid"] == "F_4VIEWRANDOMI")
-rand.pivot(
+rand_wide = rand.pivot(
     index=["subjectkey", "studyeventoid", "studyeventrepeatkey", "formoid", 'itemgroupoid', 'itemgrouprepeatkey'], values="value", 
     on="itemname"
 ).sort("KITALLOCATION")
+Reactable(rand_wide)
 ```
 
 ### Disposition Form 
 
 ```{python}
-df_disposition = df.filter(df["formoid"] == "F_DISPOSITION")
-df_disposition.pivot(index=["subjectkey", "formoid"], values="value", on="itemname")
-```
-
-### Data Exploration
-
-```{python}
-Reactable(df)
+ds = df.filter(df["formoid"] == "F_DISPOSITION")
+ds_wide = ds.pivot(index=["subjectkey", "formoid"], values="value", on="itemname")
+Reactable(ds_wide)
 ```
 
 ## Summary
